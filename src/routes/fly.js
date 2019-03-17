@@ -10,13 +10,16 @@ router.get('/vuelos', async(req, res)=>{
     const aeropuerto = await pool.query('SELECT * FROM aeropuerto');
     const modelo = await pool.query('SELECT * FROM avion_modelo');
     const vuelo = await pool.query('SELECT * FROM vuelo');
-    res.render('./links/vuelos', {aeropuerto, modelo, vuelo});
+    const tabla = await pool.query('SELECT vuelo.numero_vuelo, vuelo.hora_llegada, vuelo.hora_salida, avion_modelo.nombre_avion_modelo, aeropuerto.nombre_aeropuerto, aeropuerto.nombre_aeropuerto FROM vuelo INNER JOIN avion_modelo ON vuelo.id_avion_modelo = avion_modelo.id_avion_modelo INNER JOIN aeropuerto ON vuelo.id_aeropuerto_llegada = aeropuerto.id_aeropuerto');
+    res.render('./links/vuelos', {aeropuerto, modelo, vuelo, tabla});
 });
 
 router.get('/vuelo-fecha', async(req, res)=>{
-    const avion = await pool.query('SELECT * FROM avion');
+    const avion = await pool.query('SELECT avion.matricula_avion, avion_modelo.nombre_avion_modelo FROM avion INNER JOIN avion_modelo ON avion.id_avion_modelo = avion_modelo.id_avion_modelo');
     const vuelo = await pool.query('SELECT * FROM vuelo');
-    res.render('./links/vuelo-fecha', { avion, vuelo});
+    const tabla = await pool.query('SELECT vuelo.numero_vuelo, vuelo.hora_llegada, vuelo.hora_salida, avion_modelo.nombre_avion_modelo, aeropuerto.nombre_aeropuerto, aeropuerto.nombre_aeropuerto FROM vuelo INNER JOIN avion_modelo ON vuelo.id_avion_modelo = avion_modelo.id_avion_modelo INNER JOIN aeropuerto ON vuelo.id_aeropuerto_llegada = aeropuerto.id_aeropuerto');
+
+    res.render('./links/vuelo-fecha', { avion, vuelo, tabla});
 });
 
 router.post('/add-vuelo-fecha', async (req, res) =>{
@@ -73,7 +76,7 @@ router.post('/add-vuelo', async(req,res) => {
     const id_aeropuerto_salida = ori["id_aeropuerto"];
     const destino = await pool.query("SELECT id_aeropuerto FROM aeropuerto WHERE nombre_aeropuerto = ?", [nombre_aeropuerto2]);
     const dest = destino[0];
-    const id_aeropuerto_llegada = ori["id_aeropuerto"];
+    const id_aeropuerto_llegada = dest["id_aeropuerto"];
     const avion = await pool.query("SELECT id_avion_modelo FROM avion_modelo WHERE nombre_avion_modelo = ?", [nombre_avion_modelo]);
     const ave = avion[0];
     const id_avion_modelo = ave["id_avion_modelo"];

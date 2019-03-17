@@ -51,8 +51,8 @@
         <div class="col-8">
             <h1>Itinerario vuelos</h1>
             <ul class="list-group">
-                {{#each vuelo}}
-                    <li class="list-group-item">Numero vuelo: {{numero_vuelo}}  [Hora salida: {{hora_salida}} Hora llegada: {{hora_llegada}}]</li>
+                {{#each tabla}}
+                    <li class="list-group-item">Numero vuelo: {{numero_vuelo}}  [Hora salida: {{hora_salida}} Hora llegada: {{hora_llegada}}] Modelo {{nombre_avion_modelo}} Llegada: {{nombre_aeropuerto}}</li>
                 {{/each}}
             </ul>
 
