@@ -5,6 +5,7 @@ const pool = require('../database');
 const { isLoggedIn } = require('../lib/auth');
 
 ////Aeropuertos
+
 router.get('/aeropuertos', async  (req, res) => {
     const pais = await pool.query('SELECT * FROM pais');
     const ciudad = await pool.query('SELECT * FROM ciudad');
