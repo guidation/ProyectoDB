@@ -4,11 +4,7 @@ const router = express.Router();
 const pool = require('../database');
 const { isLoggedIn } = require('../lib/auth');
 
-router.get('/add', async  (req, res) => {
-    const manufacturers = await pool.query('SELECT * FROM fabricante');
-    const gasoline = await pool.query('SELECT * FROM tipo_combustible');
-    res.render('links/add', { manufacturers, gasoline});
-});
+//aviones
 router.get('/aviones', async  (req, res) => {
     const model = await pool.query('SELECT * FROM avion_modelo');
     const state = await pool.query('SELECT * FROM avion_estado');
@@ -57,6 +53,12 @@ router.get('/delete-avion/:id', async(req, res) =>{
     }
 });
 
+//modelos avion, fabricantes y gasolina
+router.get('/add', async  (req, res) => {
+    const manufacturers = await pool.query('SELECT * FROM fabricante');
+    const gasoline = await pool.query('SELECT * FROM tipo_combustible');
+    res.render('links/add', { manufacturers, gasoline});
+});
 
 router.post('/add-manufac', async(req, res) =>{
     const {
@@ -81,9 +83,6 @@ router.post('/add-gas', async(req, res) =>{
     req.flash('success', 'Tipo gasolina agregado con exito');
     res.redirect('/links/add');
 });
-
-
-
 
 router.post('/add-model', async (req, res) => {
     const { 

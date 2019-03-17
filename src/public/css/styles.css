@@ -1,5 +1,5 @@
 body {
-    background: #f5f6fa;
+    background: #dddee4;
 font-family: 'Oswald', sans-serif;
 
     
@@ -11,7 +11,7 @@ font-family: 'Oswald', sans-serif;
 }
 
 .navbar {
-    background: black !important;
+    background: green !important;
 }
 
 .nav-link {

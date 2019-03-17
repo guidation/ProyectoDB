@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="/">
       <i class="fas fa-link"></i> Aerolineas Guacamaya
@@ -30,17 +30,18 @@
         {{else}}
 
         <div class="dropdown">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Modelos
           </a>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" href="/links/add">Agregar Modelo</a>
             <a class="dropdown-item" href="/links">Visualizar Modelos</a>
+            <a class="dropdown-item" href="/links/vuelos">Itinerario Vuelos</a>
           </div>
         </div>
         <div class="dropdown" style="margin-left: 5px;">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Aeropuertos
           </a>
 
@@ -49,7 +50,7 @@
             <a class="dropdown-item" href="/links/ver-aeropuertos">Visualizar Aeropuertos</a>
           </div>
         </div>
-        <a  class="btn btn-secondary" style="margin-left: 5px;" href="/links/aviones">Inventario</a>
+        <a  class="btn btn-warning" style="margin-left: 5px;" href="/links/aviones">Inventario</a>
         <!--<li class="nav-item">
           <a class="nav-link" href="/signin">SignIn</a>
         </li>
