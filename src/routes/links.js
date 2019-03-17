@@ -100,6 +100,18 @@ router.get('/delete-fabricantes/:id', async (req, res) => {
     req.flash('success', 'Link Removed Successfully');
     res.redirect('/links');
 });
+router.get('/delete-modelos/:id', async (req, res) => {
+    const { id } = req.params;
+    await pool.query('DELETE FROM avion_modelo WHERE id_avion_modelo = ?', [id]);
+    req.flash('success', 'Link Removed Successfully');
+    res.redirect('/links');
+});
+router.get('/delete-combustible/:id', async (req, res) => {
+    const { id } = req.params;
+    await pool.query('DELETE FROM tipo_combustible WHERE id_tipo_combustible = ?', [id]);
+    req.flash('success', 'Link Removed Successfully');
+    res.redirect('/links');
+});
 
 router.get('/edit-fabricantes/:id', async (req, res) => {
     const { id } = req.params;

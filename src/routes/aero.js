@@ -11,6 +11,50 @@ router.get('/aeropuertos', async  (req, res) => {
     const aeropuerto = await pool.query('SELECT * FROM aeropuerto');
     res.render('links/aeropuertos', { pais, ciudad, aeropuerto });
 });
+router.get('/ver-aeropuertos', async  (req, res) => {
+    const pais = await pool.query('SELECT * FROM pais');
+    const ciudad = await pool.query('SELECT * FROM ciudad');
+    const aeropuerto = await pool.query('SELECT * FROM aeropuerto');
+    const pistas = await pool.query('SELECT * FROM pista_aterrizaje');
+    res.render('links/ver-aeropuertos', { pais, ciudad, aeropuerto });
+});
+router.get('/delete-pais/:id', async (req, res) => {
+    const { id } = req.params;
+    try{
+        await pool.query('DELETE FROM pais WHERE id_pais = ?', [id]);
+        req.flash('success', 'Link Removed Successfully');
+        res.redirect('/links/ver-aeropuertos');
+    }
+    catch(e){
+        req.flash('success', 'No se puede borrar un pais si existe referencia a una ciudad dentro del mismo.');
+        res.redirect('/links/ver-aeropuertos');
+    }
+});
+router.get('/delete-ciudad/:id', async (req, res) => {
+    const { id } = req.params;
+    try{
+        await pool.query('DELETE FROM ciudad WHERE id_ciudad = ?', [id]);
+        req.flash('success', 'Link Removed Successfully');
+        res.redirect('/links/ver-aeropuertos');
+    }
+    catch(e){
+        req.flash('success', 'No se puede borrar una ciudad si existe referencia a un aeropuerto dentro de la misma.');
+        res.redirect('/links/ver-aeropuertos');
+    }
+});
+router.get('/delete-aeropuerto/:id', async (req, res) => {
+    const { id } = req.params;
+    try{
+        await pool.query('DELETE FROM aeropuerto WHERE id_aeropuerto = ?', [id]);
+        req.flash('success', 'Link Removed Successfully');
+        res.redirect('/links/ver-aeropuertos');
+    }
+    catch(e){
+        req.flash('success', 'No se puede borrar el aeropuerto ahora mismo.');
+        res.redirect('/links/ver-aeropuertos');
+    }
+});
+
 router.post('/aeropuertos-pais', async(req, res) =>{
     const {
         nombre_pais,
