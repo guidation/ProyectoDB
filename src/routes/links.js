@@ -9,6 +9,54 @@ router.get('/add', async  (req, res) => {
     const gasoline = await pool.query('SELECT * FROM tipo_combustible');
     res.render('links/add', { manufacturers, gasoline});
 });
+router.get('/aviones', async  (req, res) => {
+    const model = await pool.query('SELECT * FROM avion_modelo');
+    const state = await pool.query('SELECT * FROM avion_estado');
+    const plane = await pool.query('SELECT * FROM avion');
+    res.render('links/aviones', { model, state, plane});
+});
+router.post('/aviones-add', async (req, res) =>{
+    const {
+        matricula_avion,
+        es_alquilado,
+        nombre_avion_modelo,
+        nombre_estado
+    } = req.body;
+
+    const model = await pool.query('SELECT id_avion_modelo FROM avion_modelo WHERE nombre_avion_modelo = ?', [nombre_avion_modelo]);
+    const mod = model[0];
+    const id_avion_modelo = mod["id_avion_modelo"];
+    const state = await pool.query('SELECT id_avion_estado FROM avion_estado WHERE nombre_estado = ?', [nombre_estado]);
+    const sta = state[0];
+    const id_avion_estado = sta["id_avion_estado"];
+
+    const newPlane = {
+        matricula_avion,
+        es_alquilado,
+        id_avion_estado,
+        id_avion_modelo
+    }
+    try{
+        await pool.query("INSERT INTO avion set ?", [newPlane]);
+        req.flash('success', 'Se ha agregado un avion con exito');
+        res.redirect('/links/aviones');
+    }catch(e){
+        console.log(e);
+    }
+});
+router.get('/delete-avion/:id', async(req, res) =>{
+    const {id} = req.params;
+    try{
+        await pool.query('DELETE FROM avion WHERE id_avion = ?', [id]);
+        req.flash('success','Se elimino con exito el avion');
+        res.redirect('/links/aviones');
+    }catch(e)
+    {
+        req.flash('success','No se pudo eliminar el avion en estos momentos');
+        res.redirect('/links/aviones');
+    }
+});
+
 
 router.post('/add-manufac', async(req, res) =>{
     const {
