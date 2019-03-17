@@ -1,34 +1,86 @@
-<div class="container p-4">
-    <div class="row"> <h1>Lista de Fabricantes</h1>
-
-        {{#each links}}
+<div class="container p-4 text-center">
+    <h1>Fabricantes</h1>
+    <div class="row" > 
+        {{#each fabricantes}}
             <div class="col-md-3">
-                <div class="card text-center">
+                <div class="card text-center" style = "margin-top: 50px;">
                     <div class="card-body">
                         <a href="{{url}}">
                             <h3 class="card-title text-uppercase">
                                 {{nombre_fabricante}}
                             </h3>
                         </a>
-                        <p class="m-2">
-                            {{description}}  
-                        </p>
                         <p>
                           {{timeago created_at}}  
                         </p>
-                        <a href="/links/delete/{{id}}" class="btn btn-danger">DELETE</a>
-                        <a href="/links/edit/{{id}}" class="btn btn-secondary">EDIT</a>
+                        <a href="/links/delete-fabricantes/{{id_fabricante}}" class="btn btn-danger">DELETE</a>
+                        <a href="/links/edit-fabricantes/{{id_fabricante}}" class="btn btn-secondary">EDIT</a>
                     </div>
                 </div>
             </div>
             {{else}}
             <div class="col-md-4 mx-auto">
                 <div class="card card-body text-center">
-                    <p>There are not links saved</p>
-                    <a href="/links/add">Create one</a>
+                    <p>No hay aviones guardados</p>
+                    <a href="/links/add">Guarda uno</a>
                 </div>
             </div>
         {{/each}}
-
+    </div>
+    <h1  style = "margin-top: 50px;">Modelos de Avion</h1>
+    <div class="row">
+        {{#each modelos}}
+            <div class="col-md-3">
+                <div class="card text-center" style = "margin-top: 50px;">
+                    <div class="card-body">
+                        <a href="{{url}}">
+                            <h3 class="card-title text-uppercase">
+                                {{nombre_avion_modelo}}
+                            </h3>
+                        </a>
+                        <p>
+                          {{timeago created_at}}  
+                        </p>
+                        <a href="/links/delete/{{id_avion_modelo}}" class="btn btn-danger">DELETE</a>
+                        <a href="/links/edit/{{id_avion_modelo}}" class="btn btn-secondary">EDIT</a>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="col-md-4 mx-auto">
+                <div class="card card-body text-center">
+                    <p>No hay modelos de avion guardados</p>
+                    <a href="/links/add">Guarda uno</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+    <h1  style = "margin-top: 50px;">Tipos Combustible</h1>
+    <div class="row">
+        {{#each gasolina}}
+            <div class="col-md-3">
+                <div class="card text-center" style = "margin-top: 50px;">
+                    <div class="card-body">
+                        <a href="{{url}}">
+                            <h3 class="card-title text-uppercase">
+                                {{nombre_tipo_combustible}}
+                            </h3>
+                        </a>
+                        <p>
+                          {{timeago created_at}}  
+                        </p>
+                        <a href="/links/delete/{{id_tipo_combustible}}" class="btn btn-danger">DELETE</a>
+                        <a href="/links/edit/{{id_tipo_combustible}}" class="btn btn-secondary">EDIT</a>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="col-md-4 mx-auto">
+                <div class="card card-body text-center">
+                    <p>No hay tipos de gasolina guardados</p>
+                    <a href="/links/add">Guarda uno</a>
+                </div>
+            </div>
+        {{/each}}
     </div>
 </div>

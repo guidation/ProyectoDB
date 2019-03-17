@@ -56,16 +56,12 @@ router.post('/add-model', async (req, res) => {
         salida_emergencia,
          } = req.body;
     
-    
     const fabricante = await pool.query("SELECT id_fabricante FROM fabricante WHERE nombre_fabricante = ?", [nombre_fabricante]);
     const fab = fabricante[0];
     const id_fabricante = fab["id_fabricante"];
     const combustible = await pool.query("SELECT id_tipo_combustible FROM tipo_combustible WHERE nombre_tipo_combustible = ?", [nombre_tipo_combustible]);
     const comb = combustible[0];
     const id_tipo_combustible = comb["id_tipo_combustible"];
-
-    
-
 
     const newLink = {
         id_avion_modelo,
@@ -89,38 +85,36 @@ router.post('/add-model', async (req, res) => {
         req.flash('success', 'Link Saved Successfully');
         res.redirect('/links');
     
-  
-    
 });
 
 router.get('/',  async (req, res) => {
-    const links = await pool.query('SELECT * FROM fabricante');
-    res.render('links/list', { links });
+    const fabricantes = await pool.query('SELECT * FROM fabricante');
+    const modelos = await pool.query('SELECT * FROM avion_modelo');
+    const gasolina = await pool.query('SELECT * FROM tipo_combustible');
+    res.render('links/list', { fabricantes, modelos, gasolina });
 });
 
-router.get('/delete/:id', async (req, res) => {
+router.get('/delete-fabricantes/:id', async (req, res) => {
     const { id } = req.params;
-    await pool.query('DELETE FROM links1 WHERE ID = ?', [id]);
+    await pool.query('DELETE FROM fabricante WHERE id_fabricante = ?', [id]);
     req.flash('success', 'Link Removed Successfully');
     res.redirect('/links');
 });
 
-router.get('/edit/:id', isLoggedIn,async (req, res) => {
+router.get('/edit-fabricantes/:id', async (req, res) => {
     const { id } = req.params;
-    const links = await pool.query('SELECT * FROM links1 WHERE id = ?', [id]);
+    const links = await pool.query('SELECT * FROM fabricante WHERE id_fabricante = ?', [id]);
     console.log(links);
     res.render('links/edit', {link: links[0]});
 });
 
-router.post('/edit/:id', isLoggedIn,async (req, res) => {
+router.post('/edit-fabricantes/:id',async (req, res) => {
     const { id } = req.params;
-    const { title, description, url} = req.body; 
-    const newLink = {
-        title,
-        description,
-        url
+    const { nombre_fabricante } = req.body; 
+    const newFab = {
+        nombre_fabricante,
     };
-    await pool.query('UPDATE links1 set ? WHERE id = ?', [newLink, id]);
+    await pool.query('UPDATE fabricante set ? WHERE id_fabricante = ?', [newFab, id]);
     req.flash('success', 'Link Updated Successfully');
     res.redirect('/links');
 });
