@@ -1,5 +1,5 @@
 const express = require('express');
-const morgan = require('morgan'); //Muestra peticiones en consola
+const morgan = require('morgan');   //Muestra peticiones en consola
 const exhbs = require('express-handlebars');
 const path = require('path');
 const flash = require('connect-flash');

@@ -1,10 +1,48 @@
 <div class="container p-4">
     <div>
         <div class="row">
-             <div class="col-md-4 mx-auto">
-                  <div class="card ">
-                      <div class="card-body">
-                          <form action="/links/add" method="POST">
+            <div class="col-md-4 mx-auto">
+                <div class="row">
+                    <div class = "card"> 
+                        <div class="card-body"> <h3> Agregar Fabricante</h3>
+                            <form action="/links/add-manufac" method="POST">
+                                <div class="form-group">
+                                  <input type="text" class="form-control" name="nombre_fabricante" placeholder="Nombre Fabricante" required="required">
+                                </div>
+                                <button class="btn btn-success btn-block">
+                                      SAVE
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class = "card"> 
+                        <div class="card-body"> <h3> Gasolina</h3> 
+                            <form action="/links/add-gas" method="POST">
+                                <div class="form-group">
+                                  <input type="text" class="form-control" name="nombre_tipo_combustible" placeholder="Nombre Tipo Gasolina" required="required">
+                                </div>
+                                <button class="btn btn-success btn-block">
+                                      SAVE
+                                </button>
+                            </form>
+
+                            
+                        </div>
+
+                    </div>
+                </div>
+                
+
+            </div>
+
+             <div class="col-md-4 mx-auto" > 
+                  <div class="card "> 
+                      <div class="card-body"> <h3> Agregar modelo de avion</h3>
+                          <form action="/links/add-model" method="POST">
                               <div class="form-group">
                                   <input type="text" class="form-control" name="nombre_avion_modelo" placeholder="Nombre Avion Modelo" autofocus>
                               </div>
@@ -42,10 +80,18 @@
                                   <input type= "text" name="capacidad_combustible" class="form-control" placeholder="Capacidad Combustible">
                               </div>
                               <div class="form-group">
-                                  <input type= "text" name="nombre_tipo_combustible" class="form-control" placeholder="Nombre Tipo de Combustible">
+                                  <select type= "text" name="nombre_tipo_combustible" class="form-control" placeholder="Nombre Tipo de Combustible">
+                                      {{#each gasoline}}
+                                        <option>{{nombre_tipo_combustible}}</option>
+                                      {{/each}}
+                                  </select>
                               </div>
                               <div class="form-group">
-                                  <input type= "text" name="nombre_fabricante" class="form-control" placeholder="Nombre Fabricante">
+                                  <select type= "text" name="nombre_fabricante" class="form-control" placeholder="Nombre Fabricante">
+                                      {{#each manufacturers}}
+                                        <option>{{nombre_fabricante}}</option>
+                                      {{/each}}
+                                  </select>
                               </div>
                                   <button class="btn btn-success btn-block">
                                       SAVE
