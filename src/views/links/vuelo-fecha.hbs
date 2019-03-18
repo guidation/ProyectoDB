@@ -1,0 +1,62 @@
+<div class="container p-4 text-center">
+    <div class="row">
+        <div class="col-4 ">
+            <h1>Vuelos</h1>
+            <div class = "card" style="width:300px; ">
+                <div class="card-body"> <h3> Fecha Vuelo</h3>
+                     <form action="/links/add-vuelo-fecha" method="POST">
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="fecha" required="required">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="porcentaje_sobreventa" placeholder = "Porcentaje sobreventa" required="required">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="peso_vuelo" placeholder="Peso vuelo" required="required">
+                        </div>
+                        <div class="form-group" required="required">
+                            <select type= "text" name="matricula_avion" class="form-control" id="list" >
+                                {{#each avion}}
+                                    <option>{{matricula_avion}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group" required="required">
+                            <select type= "text" name="numero_vuelo" class="form-control" >
+                                {{#each vuelo}}
+                                    <option>{{numero_vuelo}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <button class="btn btn-success btn-block">
+                            SAVE
+                        </button>
+                     </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 ">
+            <h1>Itinerario vuelos</h1>
+            <ul class="list-group">
+                <ul class="list-group">
+                {{#each tabla}}
+                    <li class="list-group-item">Numero vuelo: {{numero_vuelo}}  [Hora salida: {{hora_salida}} Hora llegada: {{hora_llegada}}] Modelo {{nombre_avion_modelo}} Llegada: {{nombre_aeropuerto}}</li>
+                {{/each}}
+                </ul>
+            </ul>
+            
+
+        </div>
+        <div class="col-4 ">
+            <h1>Aviones</h1>
+            <ul class="list-group">
+                <ul class="list-group">
+                {{#each avion}}
+                    <li class="list-group-item">Matricula: {{matricula_avion}}  Modelo: {{nombre_avion_modelo}}</li>
+                {{/each}}
+                </ul>
+            </ul>
+        </div>
+            
+    </div>
+</div>
