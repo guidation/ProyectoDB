@@ -1,0 +1,109 @@
+<div class="container p-4">
+    <div>
+        <div class="row">
+             <div class="col-md-4 mx-auto" > 
+                  <div class="card "> 
+                      <div class="card-body"> <h3> Agregar boleto</h3>
+                          <form action="/links/add-boleto" method="POST">
+                              <div class="form-group">
+                                  Pasajero
+                                  <select type= "text" name="nombre" class="form-control" placeholder="Pasajero">
+                                      {{#each pasajeros}}
+                                        <option>{{nombre}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                 <input type= "text" name="numero_boleto" class="form-control" placeholder="Numero de Boleto">
+                              </div>
+                              <div class="form-group">
+                                  <input type="date" class="form-control" name="fecha_boleto" placeholder="Fecha del Boleto">
+                              </div>
+                              <div class="form-group">
+                              <input type= "number" name="precio" class="form-control" placeholder="Precio">
+                              </div>
+                              <div class="form-group">
+                                  <input type="number" class="form-control" name="impuesto" placeholder="Impuesto">
+                              </div>
+                              <div class="form-group">
+                              <input type= "text" name="numero_asiento" class="form-control" placeholder="Numero de Asiento">
+                              </div>
+                              <div class="form-group">
+                                  Aeropuerto Salida
+                                  <select type= "text" name="nombre_aeropuerto_salida" class="form-control" placeholder="Aeropuerto Salida">
+                                      {{#each aeropuerto}}
+                                        <option>{{nombre_aeropuerto}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                  Aeropuerto Llegada
+                                  <select type= "text" name="nombre_aeropuerto_llegada" class="form-control" placeholder="Aeropuerto Llegada">
+                                      {{#each aeropuerto}}
+                                        <option>{{nombre_aeropuerto}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                                  <button class="btn btn-success btn-block">
+                                      SAVE
+                                  </button>
+                               
+                          </form>
+                      </div>
+                 </div>
+            </div>
+            <div class="col-md-4 mx-auto" > 
+                  <div class="card "> 
+                      <div class="card-body"> <h3> Agregar boleto</h3>
+                          <form action="/links/add-boleto" method="POST">
+                              <div class="form-group">
+                                  Pasajero
+                                  <select type= "text" name="nombre" class="form-control" placeholder="Pasajero">
+                                      {{#each pasajeros}}
+                                        <option>{{nombre}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                 <input type= "text" name="id_vuelo_fecha" class="form-control" placeholder= "Vuelo">
+                              </div>
+                              <div class="form-group">
+                                  <input type="date" class="form-control" name="fecha_boleto" placeholder="Fecha del Boleto">
+                              </div>
+                              <div class="form-group">
+                              <input type= "number" name="precio" class="form-control" placeholder="Precio">
+                              </div>
+                              <div class="form-group">
+                                  <input type="number" class="form-control" name="impuesto" placeholder="Impuesto">
+                              </div>
+                              <div class="form-group">
+                              <input type= "text" name="numero_asiento" class="form-control" placeholder="Numero de Asiento">
+                              </div>
+                              <div class="form-group">
+                                  Aeropuerto Salida
+                                  <select type= "text" name="nombre_aeropuerto_salida" class="form-control" placeholder="Aeropuerto Salida">
+                                      {{#each aeropuerto}}
+                                        <option>{{nombre_aeropuerto}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                  Aeropuerto Llegada
+                                  <select type= "text" name="nombre_aeropuerto_llegada" class="form-control" placeholder="Aeropuerto Llegada">
+                                      {{#each aeropuerto}}
+                                        <option>{{nombre_aeropuerto}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                                  <button class="btn btn-success btn-block">
+                                      SAVE
+                                  </button>
+                               
+                          </form>
+                      </div>
+                 </div>
+            </div>
+
+        </div>
+    </div>
+</div>
