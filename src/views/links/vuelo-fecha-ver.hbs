@@ -1,0 +1,14 @@
+<div class="container p-4 text-center">
+    <div class="row">
+        <div class="col-md-3">
+            <h1>Aviones</h1>
+            <ul class="list-group">
+                <ul class="list-group">
+                {{#each fechaFly}}
+                    <li class="list-group-item">Numero: {{numero_vuelo}} <a href="/links/edit-price/{{id_vuelo_fecha}}" class="btn btn-secondary">Modificar Precio</a> </li>
+                {{/each}}
+                </ul>
+            </ul>
+        </div>
+    </div>
+</div>
