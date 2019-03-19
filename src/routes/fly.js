@@ -17,10 +17,97 @@ router.get('/vuelos', async(req, res)=>{
 router.get('/vuelo-fecha', async(req, res)=>{
     const avion = await pool.query('SELECT avion.matricula_avion, avion_modelo.nombre_avion_modelo FROM avion INNER JOIN avion_modelo ON avion.id_avion_modelo = avion_modelo.id_avion_modelo');
     const vuelo = await pool.query('SELECT * FROM vuelo');
+    const fechaFly = await pool.query('SELECT * FROM vuelo_fecha');
     const tabla = await pool.query('SELECT vuelo.numero_vuelo, vuelo.hora_llegada, vuelo.hora_salida, avion_modelo.nombre_avion_modelo, aeropuerto.nombre_aeropuerto, aeropuerto.nombre_aeropuerto FROM vuelo INNER JOIN avion_modelo ON vuelo.id_avion_modelo = avion_modelo.id_avion_modelo INNER JOIN aeropuerto ON vuelo.id_aeropuerto_llegada = aeropuerto.id_aeropuerto');
-
-    res.render('./links/vuelo-fecha', { avion, vuelo, tabla});
+    const airport = await pool.query('SELECT * FROM aeropuerto');
+    res.render('./links/vuelo-fecha', { avion, vuelo, tabla, fechaFly, airport});
 });
+
+router.get('/edit-price/:id', async (req, res) => {
+    const { id } = req.params;
+    const links = await pool.query('SELECT * FROM vuelo_fecha WHERE id_vuelo_fecha = ?', [id]);
+    console.log(links);
+    res.render('links/precio-vuelo', {link: links[0]});
+});
+
+router.post('/edit-price/:id', async (req, res) => {
+    const { id } = req.params;
+    const { 
+        precio1,
+        precio2,
+     } = req.body; 
+
+     const id_vuelo_fecha = id;
+     const precio_base = precio1;
+     const asiento = await pool.query("SELECT id_clase_asiento FROM clase_asiento WHERE nombre_clase_asiento = 'Primera';");
+     const asi = asiento[0];
+     var id_clase_asiento = asi['id_clase_asiento'];
+     console.log(precio_base);
+     console.log(id_clase_asiento);
+     console.log(id_vuelo_fecha);
+     const newFirstPrice = {
+         id_vuelo_fecha,
+         precio_base,
+         id_clase_asiento
+     }
+     
+     try{
+         await pool.query('INSERT INTO vuelo_precio set ?', [newFirstPrice]);
+        
+     }catch(e){
+        console.log(e);
+        req.flash('success','ERROR: No se pudo agregar el precio.');
+        res.redirect('/links/precio-vuelo');
+        
+     }
+    
+   
+    
+     const asiento1 = await pool.query("SELECT id_clase_asiento FROM clase_asiento WHERE nombre_clase_asiento = 'Economica';");
+     
+     const asi1= asiento1[0];
+     id_clase_asiento = asi1['id_clase_asiento'];
+     console.log(id_clase_asiento);
+     const newEcoPrice = {
+         id_vuelo_fecha,
+         precio_base: precio2,
+         id_clase_asiento
+     }
+     console.log('logrado');
+     try{
+        await pool.query('INSERT INTO vuelo_precio set ?', [newEcoPrice]);
+        res.redirect('/links/vuelo-fecha');
+    }catch(e){
+        console.log(e);
+        req.flash('success','ERROR: No se pudo agregar el precio.');
+        res.redirect('/links/precio-vuelo');
+    }
+
+});
+
+router.post('/vuelo-fecha-ver', async(req, res)=>{
+    console.log('hola mundo');
+    const {
+        fecha_requerida,
+        origen, 
+        destino
+    } = req.body;
+    try{
+        const salida = await pool.query('SELECT id_aeropuerto FROM aeropuerto WHERE nombre_aeropuerto = ?', [origen]);
+        const sal = salida[0];
+        const exit = sal["id_aeropuerto"];
+        const llegada = await pool.query('SELECT id_aeropuerto FROM aeropuerto WHERE nombre_aeropuerto = ?', [destino]);
+        const lleg = llegada[0];
+        const arrive = lleg["id_aeropuerto"];
+        const fechaFly = await pool.query('SELECT vuelo.numero_vuelo, vuelo_fecha.id_vuelo_fecha FROM vuelo_fecha INNER JOIN vuelo ON vuelo.id_vuelo = vuelo_fecha.id_vuelo  WHERE fecha = ? AND vuelo.id_aeropuerto_salida = ? AND vuelo.id_aeropuerto_llegada = ?;', [fecha_requerida, exit, arrive]);   
+
+        res.render('./links/vuelo-fecha-ver', {fechaFly});
+    }catch(e){
+        console.log(e);
+    }
+});
+
+
 
 router.post('/add-vuelo-fecha', async (req, res) =>{
     const {
