@@ -13,8 +13,9 @@ router.get('/pasajero', async  (req, res) => {
 router.get('/boleto', async  (req, res) => {
     const aeropuerto = await pool.query('SELECT * FROM aeropuerto');
     const pasajeros = await pool.query('SELECT * FROM pasajero');
-  
-    res.render('links/boleto', { aeropuerto, pasajeros});
+    const vuelosf = await pool.query('SELECT * FROM vuelo_fecha');
+    const vuelos = await pool.query('SELECT * FROM vuelo');
+    res.render('links/boleto', { aeropuerto, pasajeros, vuelosf, vuelos});
 });
 
 router.post('/add-boletodetalle', async(req,res)=>{
