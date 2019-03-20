@@ -15,8 +15,11 @@ router.get('/boleto', async  (req, res) => {
     const pasajeros = await pool.query('SELECT * FROM pasajero');
     const vuelosf = await pool.query('SELECT * FROM vuelo_fecha');
     const vuelos = await pool.query('SELECT * FROM vuelo');
-    res.render('links/boleto', { aeropuerto, pasajeros, vuelosf, vuelos});
+    const clientes = await pool.query('SELECT * FROM cliente'); 
+    res.render('links/boleto', { aeropuerto, pasajeros, vuelosf, vuelos, clientes});
 });
+
+
 /* borrar factura detalle y agregar id-boleto a factura
 borrar boleto detalle y agregar id-clase-asiento y id-vuelo-fecha a boleto
 */
@@ -61,10 +64,43 @@ router.post('/add-boleto', async (req, res) =>{
         numero_asiento,
         id_aeropuerto_salida,
         id_aeropuerto_llegada,
+        equipaje, 
+        nombre_vuelo_fecha,
+        tipo_asiento,
     }
     try{
         await pool.query("INSERT INTO boleto set ?", [newBoleto]);
         req.flash('success', 'Se ha agregado un boleto con exito');
+        res.redirect('/links/boleto');
+    }catch(e){
+        console.log(e);
+    }
+});
+
+
+router.post('/add-factura', async (req, res) =>{
+    const {
+        id_boleto,
+        numero_factura,
+        fecha_factura,
+        monto,
+        impuesto,
+        id_factura,
+        id_cliente,
+    } = req.body;
+
+    const newFactura = {
+        id_boleto,
+        numero_factura,
+        fecha_factura,
+        monto,
+        impuesto,
+        id_factura,
+        id_cliente,
+    }
+    try{
+        await pool.query("INSERT INTO factura set ?", [newFactura]);
+        req.flash('success', 'Se ha agregado una factura con exito');
         res.redirect('/links/boleto');
     }catch(e){
         console.log(e);
