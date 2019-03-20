@@ -2,26 +2,11 @@
     <div class="row">
         <div class="col-4 ">
             <div class="row">
-                <h1>Vuelos</h1>
+                <h1>Agregar Fecha</h1>
                     <div class = "card" style="width:300px; ">
-                        <div class="card-body"> <h3> Fecha Vuelo</h3>
-                            <form action="/links/add-vuelo-fecha" method="POST">
-                                <div class="form-group">
-                                    <input type="date" class="form-control" name="fecha" required="required">
-                                </div>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" name="porcentaje_sobreventa" placeholder = "Porcentaje sobreventa" required="required">
-                                </div>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" name="peso_vuelo" placeholder="Peso vuelo" required="required">
-                                </div>
-                                <div class="form-group" required="required">
-                                    <select type= "text" name="matricula_avion" class="form-control" id="list" >
-                                        {{#each avion}}
-                                            <option>{{matricula_avion}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
+                        <div class="card-body"> <h3> Seleccionar Ruta</h3>
+                            <form action="/links/vuelo-detalles" method="POST">
+
                                 <div class="form-group" required="required">
                                     <select type= "text" name="numero_vuelo" class="form-control" >
                                         {{#each vuelo}}
@@ -30,7 +15,7 @@
                                     </select>
                                 </div>
                                 <button class="btn btn-success btn-block">
-                                    SAVE
+                                    Continuar
                                 </button>
                             </form>
                         </div>

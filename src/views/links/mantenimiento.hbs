@@ -1,0 +1,52 @@
+<div class="container p-4">
+    <div>
+        <div class="row">
+            <div class="col-md-4 mx-auto center">
+                <div class="card ">
+                    <div class="card-body">
+                        <h3>Mantenimiento</h3>
+                        <form action="/links/mantenimiento-save" method="POST">
+                            <div class="form-group">
+                                Ingresar Avion en mantenimiento
+                            </div>
+
+                            <div class="form-group" required="required">
+                                Avion
+                                <select type="text" name="matricula_avion" class="form-control" placeholder="Matricula Avion">
+                                    {{#each avion}}
+                                    <option>{{matricula_avion}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group" required="required">
+                                Tipo de mantenimiento
+                                <select type="text" name="nombre_mantenimiento" class="form-control" placeholder="Nombre Mantenimiento">
+                                    {{#each tipo_mantenimiento}}
+                                    <option>{{nombre_mantenimiento}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Fecha De inicio</label>
+                                <input type="date" name="fecha_inicio" class="form-control" placeholder="Fecha De Inicio">
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Fecha Final</label>
+                                <input type="date" name="fecha_final" class="form-control" placeholder="Fecha Final">
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Observacion</label>
+                                <input type="text" name="observacion" class="form-control" placeholder="Observacion">
+                            </div>
+                            <button class="btn btn-success btn-block">
+                                SAVE
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
