@@ -70,7 +70,50 @@
                       </div>
                  </div>
             </div>
-           
+           <div class="col-md-4 mx-auto" > 
+                  <div class="card "> 
+                      <div class="card-body"> <h3> Agregar factura</h3>
+                          <form action="/links/add-factura" method="POST">
+                              <div class="form-group">
+                                  Cliente
+                                  <select type= "text" name="nombre" class="form-control" placeholder="Cliente">
+                                      {{#each clientes}}
+                                        <option>{{nombre}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                 <input type= "text" name="numero_factura" class="form-control" placeholder="Numero de Factura">
+                              </div>
+                              <div class="form-group">
+                                  <input type="date" class="form-control" name="fecha_factura" placeholder="Fecha de la Factura">
+                              </div>
+                              <div class="form-group">
+                              <input type= "number" name="precio" class="form-control" placeholder="Precio">
+                              </div>
+                              <div class="form-group">
+                                  <input type="number" class="form-control" name="monto" placeholder="Monto de Factura">
+                              </div>
+                              <div class="form-group">
+                              <input type= "number" name="impuesto" class="form-control" placeholder="Impuesto">
+                              </div>
+                              <div class="form-group">
+                                  Boleto del pasajero
+                                  <select type= "text" name="nombre_boleto" class="form-control" placeholder="Boleto">
+                                      {{#each boletos}}
+                                        <option>{{nombre_aeropuerto}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              
+                                  <button class="btn btn-success btn-block">
+                                      SAVE
+                                  </button>
+                               
+                          </form>
+                      </div>
+                 </div>
+            </div>
            
         </div>
     </div>
