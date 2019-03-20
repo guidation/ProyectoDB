@@ -3,42 +3,20 @@
         <div class="col-4 ">
             <div class = "card" style="width:300px; ">
                 <div class="card-body"> <h3> Agregar Vuelo</h3>
-                <form action="/links/add-vuelo" method="POST">
-                    <div class="form-group">
-                        <input type="number" class="form-control" name="numero_vuelo" placeholder="Numero de vuelo" required="required">
-                    </div>
-                    <div class="form-group"> Hora Salida
-                        <input type="time" class="form-control" name="hora_salida" required="required">
-                    </div>
-                    <div class="form-group"> Hora Llegada
-                        <input type="time" class="form-control" name="hora_llegada" required="required">
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control" name="duracion_en_minutos"  placeholder="Duracion (minutos)" required="required">
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control" name="distancia_en_millas"  placeholder="Distancia (millas)" required="required">
-                    </div>
+                <form action="/links/verificar-pista" method="POST">
                     <div class="form-group" required="required"> Origen
-                            <select type= "text" name="nombre_aeropuerto1" class="form-control" >
+                            <select type= "text" name="nombre_aeropuerto_llegada" class="form-control" >
                                 {{#each aeropuerto}}
                                 <option>{{nombre_aeropuerto}}</option>
                                 {{/each}}
                             </select>
                     </div>
                     <div class="form-group" required="required"> Destino
-                            <select type= "text" name="nombre_aeropuerto2" class="form-control" >
+                            <select type= "text" name="nombre_aeropuerto_salida" class="form-control" >
                                 {{#each aeropuerto}}
                                 <option>{{nombre_aeropuerto}}</option>
                                 {{/each}}
                             </select>
-                    </div>
-                    <div class="form-group" required="required">
-                        <select type= "text" name="nombre_avion_modelo" class="form-control" >
-                            {{#each modelo}}
-                                <option>{{nombre_avion_modelo}}</option>
-                            {{/each}}
-                        </select>
                     </div>
                     <button class="btn btn-success btn-block">
                             SAVE
