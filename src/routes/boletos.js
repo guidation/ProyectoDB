@@ -17,20 +17,10 @@ router.get('/boleto', async  (req, res) => {
     const vuelos = await pool.query('SELECT * FROM vuelo');
     res.render('links/boleto', { aeropuerto, pasajeros, vuelosf, vuelos});
 });
+/* borrar factura detalle y agregar id-boleto a factura
+borrar boleto detalle y agregar id-clase-asiento y id-vuelo-fecha a boleto
+*/
 
-router.post('/add-boletodetalle', async(req,res)=>{
-    const {
-        id_boleto,
-        id_boleto_detalle,
-        id_vuelo_fecha,
-        id_clase_asiento,
-        ordinal_vuelo,
-        precio,
-        fue_utilizado
-    } = req.body;
-
-    const pasajero = await pool.query('SELECT id_pasajero FROM pasajero WHERE nombre = ?', [nombre]);
-});
 
 router.post('/add-boleto', async (req, res) =>{
     const {
@@ -43,7 +33,12 @@ router.post('/add-boleto', async (req, res) =>{
         nombre,
         nombre_aeropuerto_llegada,
         nombre_aeropuerto_salida,
+        equipaje, 
+        nombre_vuelo_fecha,
+        tipo_asiento,
     } = req.body;
+
+    
 
     const pasajero = await pool.query('SELECT id_pasajero FROM pasajero WHERE nombre = ?', [nombre]);
     const idpas = pasajero[0];
