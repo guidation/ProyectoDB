@@ -1,0 +1,38 @@
+<div class="container p-4 text-center">
+    <div class="row">
+         <div class="col-4 ">
+             <div class="row">
+                 <h1>Detalles</h1>
+                    <div class = "card" style="width:300px; ">
+                        <div class="card-body"> <h3> Fecha Vuelo</h3>
+                            <form action="/links/add-vuelo-fecha" method="POST">
+                                <div class="form-group">
+                                    <input type="date" class="form-control" name="fecha" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="porcentaje_sobreventa" placeholder = "Porcentaje sobreventa" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="peso_vuelo" placeholder="Peso vuelo" required="required">
+                                </div>
+                                <div class="form-group" required="required">
+                                    <select type= "text" name="matricula_avion" class="form-control" id="list" >
+                                        {{#each avion_indicado}}
+                                            <option>{{matricula_avion}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group" required="required">
+                                    <input type="number" name="numero_vuelo" value="{{numero_vuelo}}" class="form-control" >
+                                </div>
+                                <button class="btn btn-success btn-block">
+                                    SAVE
+                                </button>
+                            </form>
+                        </div>
+                        
+                    </div>
+             </div>
+         </div>
+    </div>
+</div>

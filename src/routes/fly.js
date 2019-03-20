@@ -107,7 +107,18 @@ router.post('/vuelo-fecha-ver', async(req, res)=>{
     }
 });
 
+router.post('/vuelo-detalles', async (req, res) =>{
+    const {
+        numero_vuelo,
+    } = req.body;
 
+    const modelame = await pool.query('SELECT id_avion_modelo FROM vuelo WHERE numero_vuelo = ?', [numero_vuelo]);
+    const model = modelame[0];
+    const id_avion_modelo = model['id_avion_modelo'];
+    console.log(id_avion_modelo);
+    const avion_indicado = await pool.query('SELECT matricula_avion FROM avion WHERE id_avion_modelo = ?', [id_avion_modelo]);
+    res.render('./links/vuelo-detalles', { avion_indicado, numero_vuelo});
+});
 
 router.post('/add-vuelo-fecha', async (req, res) =>{
     const {
@@ -118,6 +129,7 @@ router.post('/add-vuelo-fecha', async (req, res) =>{
         numero_vuelo
     } = req.body;
 
+    console.log(numero_vuelo);
     const avion = await pool.query("SELECT id_avion FROM avion WHERE matricula_avion = ?", [matricula_avion]);
     const ave = avion[0];
     const id_avion = ave["id_avion"];
