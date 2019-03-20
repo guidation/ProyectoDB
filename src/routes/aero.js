@@ -107,7 +107,8 @@ router.post('/aeropuertos-aeropuerto', async(req, res) =>{
     const {
         nombre_aeropuerto,
         codigo_iata_aeropuerto,
-        nombre_ciudad
+        nombre_ciudad,
+        longitud_pista,
     } = req.body;
     const city = await pool.query('SELECT id_ciudad FROM ciudad WHERE nombre_ciudad = ?', [nombre_ciudad]);
     const cit = city[0];
@@ -115,7 +116,8 @@ router.post('/aeropuertos-aeropuerto', async(req, res) =>{
     const newAirport = {
         nombre_aeropuerto,
         codigo_iata_aeropuerto,
-        id_ciudad
+        id_ciudad,
+        longitud_pista,
     }
     try{
         await pool.query('INSERT INTO aeropuerto set ?', [newAirport]);

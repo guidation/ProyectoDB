@@ -29,7 +29,31 @@ router.get('/edit-price/:id', async (req, res) => {
     console.log(links);
     res.render('links/precio-vuelo', {link: links[0]});
 });
+router.post('/verificar-pista', async (req, res) => {
+    const {
+        nombre_aeropuerto_salida,
+        nombre_aeropuerto_llegada
+    } = req.body;
 
+    try{
+        const pista1 = await pool.query('SELECT longitud_pista FROM aeropuerto WHERE nombre_aeropuerto = ?', [nombre_aeropuerto_salida]);
+        const pist1 = pista1[0];
+        const p1 = pist1['longitud_pista'];
+        
+        const pista2 = await pool.query('SELECT longitud_pista FROM aeropuerto WHERE nombre_aeropuerto = ?', [nombre_aeropuerto_llegada]);
+        const pist2 = pista2[0];
+        const p2 = pist2['longitud_pista'];
+     
+        const avionsito = await pool.query('SELECT * FROM avion_modelo WHERE distancia_despegue_con_carga_maxima < ? and distancia_despegue_con_carga_maxima < ?', [p1,p2]);
+       
+        res.render('./links/add-ruta', {avionsito, nombre_aeropuerto_llegada, nombre_aeropuerto_salida});
+    }catch(e){
+        console.log(e);
+        res.redirect('/links/vuelos');
+    }
+
+    
+});
 router.post('/edit-price/:id', async (req, res) => {
     const { id } = req.params;
     const { 
@@ -164,16 +188,20 @@ router.post('/add-vuelo', async(req,res) => {
         hora_llegada,
         duracion_en_minutos,
         distancia_en_millas,
-        nombre_aeropuerto1,
-        nombre_aeropuerto2,
+        nombre_aeropuerto_salida,
+        nombre_aeropuerto_llegada,
         nombre_avion_modelo
     } = req.body;
 
-    const dur = hora_llegada - hora_salida;
-    const origen = await pool.query("SELECT id_aeropuerto FROM aeropuerto WHERE nombre_aeropuerto = ?", [nombre_aeropuerto1]);
+    
+    
+
+    try{
+        const dur = hora_llegada - hora_salida;
+    const origen = await pool.query("SELECT id_aeropuerto FROM aeropuerto WHERE nombre_aeropuerto = ?", [nombre_aeropuerto_salida]);
     const ori = origen[0];
     const id_aeropuerto_salida = ori["id_aeropuerto"];
-    const destino = await pool.query("SELECT id_aeropuerto FROM aeropuerto WHERE nombre_aeropuerto = ?", [nombre_aeropuerto2]);
+    const destino = await pool.query("SELECT id_aeropuerto FROM aeropuerto WHERE nombre_aeropuerto = ?", [nombre_aeropuerto_llegada]);
     const dest = destino[0];
     const id_aeropuerto_llegada = dest["id_aeropuerto"];
     const avion = await pool.query("SELECT id_avion_modelo FROM avion_modelo WHERE nombre_avion_modelo = ?", [nombre_avion_modelo]);
@@ -188,10 +216,7 @@ router.post('/add-vuelo', async(req,res) => {
         distancia_en_millas,
         id_aeropuerto_salida,
         id_aeropuerto_llegada,
-        id_avion_modelo
-    }
-
-    try{
+        id_avion_modelo}
         await pool.query('INSERT INTO vuelo set ?', [newFlight]);
         req.flash('success','Se agrego vuelo de manera exitosa.');
         res.redirect('/links/vuelos');

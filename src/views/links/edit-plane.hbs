@@ -1,0 +1,26 @@
+<div class="container p-4">
+    <div>
+        <div class="row">
+             <div class="col-md-4 mx-auto">
+                  <div class="card ">
+                   
+                      <div class="card-body"> <h3>Estado</h3> 
+                          <form action="/links/edit-avion/{{id}}" method="POST">
+                            <div class="form-group" required="required">
+                                  <select type= "text" name="nombre_estado" class="form-control">
+                                      {{#each modAvion}}
+                                        <option>{{nombre_estado}}</option>
+                                      {{/each}}
+                                  </select>
+                            </div>
+                            <button class="btn btn-success btn-block">
+                                SAVE
+                            </button>
+                          </form>
+                      </div>
+                      
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,7 +8,8 @@ const { isLoggedIn } = require('../lib/auth');
 router.get('/aviones', async  (req, res) => {
     const model = await pool.query('SELECT * FROM avion_modelo');
     const state = await pool.query('SELECT * FROM avion_estado');
-    const plane = await pool.query('SELECT * FROM avion');
+    const plane = await pool.query('SELECT avion.id_avion, avion.matricula_avion, avion_estado.nombre_estado FROM avion INNER JOIN avion_estado ON avion.id_avion_estado = avion_estado.id_avion_estado;');
+
     res.render('links/aviones', { model, state, plane});
 });
 router.post('/aviones-add', async (req, res) =>{
@@ -165,6 +166,34 @@ router.get('/edit-fabricantes/:id', async (req, res) => {
     const links = await pool.query('SELECT * FROM fabricante WHERE id_fabricante = ?', [id]);
     console.log(links);
     res.render('links/edit', {link: links[0]});
+});
+router.get('/edit-avion/:id', async (req, res) => {
+    const { id } = req.params;
+    const modAvion = await pool.query('SELECT * FROM avion_estado');
+    res.render('links/edit-plane', {modAvion,id});
+});
+router.post('/edit-avion/:id', async (req, res) => {
+    const { id } = req.params;
+    const {
+        nombre_estado
+    } = req.body;
+    const state = await pool.query('SELECT id_avion_estado FROM avion_estado WHERE nombre_estado = ?', [nombre_estado]);
+    const sta = state[0];
+    const id_avion_estado = sta["id_avion_estado"];
+    const newPla = {
+        id_avion_estado
+    }
+    try{
+        await pool.query('UPDATE avion set ? WHERE id_avion = ?', [newPla, id]);
+    req.flash('success', 'Modificacion exitosa');
+    res.redirect('/links/aviones');
+    }catch(e){
+        console.log(e);
+        req.flash('success', 'No se pudo cambiar');
+    res.redirect('/links/aviones');
+    }
+    
+
 });
 
 router.post('/edit-fabricantes/:id',async (req, res) => {
