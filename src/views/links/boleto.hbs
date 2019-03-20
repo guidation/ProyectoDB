@@ -44,95 +44,24 @@
                                       {{/each}}
                                   </select>
                               </div>
-                                  <button class="btn btn-success btn-block">
-                                      SAVE
-                                  </button>
-                               
-                          </form>
-                      </div>
-                 </div>
-            </div>
-            <div class="col-md-4 mx-auto" > 
-                  <div class="card "> 
-                      <div class="card-body"> <h3> Agregar detalle boleto</h3>
-                          <form action="/links/add-boleto" method="POST">
                               <div class="form-group">
-                                  Boleto del pasajero
-                                  <select type= "text" name="nombre" class="form-control" placeholder="Pasajero">
-                                      {{#each pasajeros}}
-                                        <option>{{nombre}}</option>
-                                      {{/each}}
-                                  </select>
+                              <input type= "number" name="equipaje" class="form-control" placeholder="Cantidad de equipaje">
                               </div>
                               <div class="form-group">
                                   Vuelo
-                                 <input type= "text" name="id_vuelo_fecha" class="form-control" placeholder= "Vuelo">
-                              </div>
-                              <div class="form-group">
-                                  <input type="text" class="form-control" name="id_clase_asiento" placeholder="Tipo de Asiento">
-                              </div>
-                              <div class="form-group">
-                              <input type= "text" name="ordinal_vuelo" class="form-control" placeholder="Ordinal Vuelo">
-                              </div>
-                              <div class="form-group">
-                                  <input type="number" class="form-control" name="Precio" placeholder="Precio">
-                              </div>
-                              <div class="form-check">
-                                <input class="form-check-input" type="radio" name="utilizado"  value="1" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Utilizado
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="no_utilizado"  value="0">
-                                <label class="form-check-label" for="exampleRadios2">
-                                    No Utilizado
-                                </label>
-                            </div>
-                                  <button class="btn btn-success btn-block">
-                                      SAVE
-                                  </button>
-                               
-                          </form>
-                      </div>
-                 </div>
-            </div>
-            <div class="col-md-4 mx-auto" > 
-                  <div class="card "> 
-                      <div class="card-body"> <h3> Agregar equipaje</h3>
-                          <form action="/links/add-boleto" method="POST">
-                              <div class="form-group">
-                                  Pasajero
-                                  <select type= "text" name="codigo_equipaje" class="form-control" placeholder="Codigo Equipaje">
-                                      {{#each pasajeros}}
-                                        <option>{{nombre}}</option>
+                                  <select type= "text" name="nombre_vuelo_fecha" class="form-control" placeholder="Vuelo">
+                                      {{#each vuelo}}
+                                        <option>{{nombre_vuelo_fecha}}</option>
                                       {{/each}}
                                   </select>
                               </div>
-                              <div class="form-group">
-                                 <input type= "text" name="id_vuelo_fecha" class="form-control" placeholder= "Vuelo">
+                               <div class="form-group">
+                                  Asiento
+                                  <select type= "text" name="tipo_asiento" class="form-control" placeholder="Tipo de asiento">
+                                      <option>Económica</option>
+                                      <option>Primera Clase</option>
+                                  </select>
                               </div>
-                              <div class="form-group">
-                                  <input type="text" class="form-control" name="id_clase_asiento" placeholder="Tipo de Asiento">
-                              </div>
-                              <div class="form-group">
-                              <input type= "text" name="ordinal_vuelo" class="form-control" placeholder="Ordinal Vuelo">
-                              </div>
-                              <div class="form-group">
-                                  <input type="number" class="form-control" name="Precio" placeholder="Precio">
-                              </div>
-                              <div class="form-check">
-                                <input class="form-check-input" type="radio" name="utilizado"  value="1" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Utilizado
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="no_utilizado"  value="0">
-                                <label class="form-check-label" for="exampleRadios2">
-                                    No Utilizado
-                                </label>
-                            </div>
                                   <button class="btn btn-success btn-block">
                                       SAVE
                                   </button>
@@ -141,6 +70,8 @@
                       </div>
                  </div>
             </div>
+           
+           
         </div>
     </div>
 </div>
