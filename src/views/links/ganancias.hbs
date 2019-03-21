@@ -1,0 +1,23 @@
+<div class="container p-4">
+    <div>
+        <div class="row">
+             <div class="col-md-8 mx-auto">
+                  <div class="card text-center">
+                      {{#if fechagan}}
+                      <img src="/img/money.png"  class="card-img-top" alt="...">
+                      <div class="card-body"> <h1>Dolares: {{fechagan}} </h1> 
+                        <a href="/links/reportes" class="btn btn-secondary">Volver</a>
+                      </div>
+                      {{else}}
+                      <img src="/img/bankrupt.png"  class="card-img-top" alt="..." style="height: 480px;">
+                      <div class="card-body">
+                           <h1>No money: better start investing elsewhere!</h1> 
+                        <a href="/links/reportes" class="btn btn-secondary">Volver</a>
+                      </div>
+                     
+                      {{/if}}
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>

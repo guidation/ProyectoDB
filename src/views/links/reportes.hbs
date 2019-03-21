@@ -1,0 +1,61 @@
+<div class="container p-4 text-center">
+    <h1>Reportes</h1>
+    <div class="row" >
+         <div class="col-md-4">
+             <div class="row">
+                 <div class="card text-center" style = "margin-top: 50px;">
+                 <img src="/img/ventas.jpg"  class="card-img-top" alt="...">
+                 <div class="card-body">
+                     <h3>Pasajes Vendidos <span class="badge badge-success">{{ven}}</span></h3>
+                 </div>
+             </div>
+             </div>
+             <div class="row" style="margin-top: 20px;" >
+       
+             <div class = "card"  style="width:330px;">
+                 <div class="card-body"> <h3> Ganancias</h3>
+                        <form action="/links/ver-ganancias" method="POST">
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="fecha_inicio" required="required">
+                        </div>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="fecha_final" required="required">
+                        </div>
+                        <button class="btn btn-success btn-block">
+                                Buscar
+                        </button>
+                        </form>
+                 </div>
+            </div>
+         
+     </div>
+             
+         </div>
+         <div class="col-md-4">
+             <div class="card text-center" style = "margin-top: 50px;">
+                 <img src="/img/routes.gif"  class="card-img-top" alt="...">
+                 <div class="card-body">
+                     <h5>Destinos mas visitados </h3>
+                     <ul class="list-group">
+                        {{#each visitado}}
+                             <li class="list-group-item"> {{'SELECT COUNT(boleto.id_aeropuerto_salida)'}} {{nombre_aeropuerto}}</li>
+                        {{/each}}
+                     </ul>
+                     
+                 </div>
+             </div>
+         </div>
+         <div class="col-md-4">
+             <div class="card text-center" style = "margin-top: 50px;">
+                 <img src="/img/data.jpg"  class="card-img-top" alt="...">
+                 <div class="card-body">
+                     <h5>Datos relevantes </h3>
+                     <ul class="list-group">
+                         <li>Peso promedio vuelo: {{peso}}</li>
+                     </ul>
+                 </div>
+             </div>
+         </div>
+    </div>
+    
+</div>
