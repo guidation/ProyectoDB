@@ -1,0 +1,36 @@
+<div class="container p-4">
+    <div>
+        <div class="row">
+           <div class="col-md-4 mx-auto" > 
+                  <div class="card "> 
+                      <div class="card-body"> <h3> Manifiesto Cancelacion</h3>
+                          <form action="/links/add-manifiestocancel" method="POST">
+                              
+                              <div class="form-group">
+                                 <input type= "date" name="fecha_cancelacion" class="form-control" placeholder="Fecha de la Cancelación">
+                              </div>
+                              
+                              <div class="form-group">
+                              <input type= "text" name="motivo_cancelacion" class="form-control" placeholder="Motivo de Cancelacion" style="height:20px">
+                              </div>
+                              <div class="form-group">
+                                 Vuelo a cancelar
+                                  <select type= "text" name="numero_vuelo" class="form-control" placeholder="Numero del Vuelo">
+                                      {{#each vuelof}}
+                                        <option>{{numero_vuelo}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              
+                                  <button class="btn btn-success btn-block">
+                                      SAVE
+                                  </button>
+                               
+                          </form>
+                      </div>
+                 </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
