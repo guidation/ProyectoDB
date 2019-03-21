@@ -72,30 +72,5 @@
                     </div>
                 </div> 
             </div>
-            <div class="row">
-                <div class = "card" style="width:300px; margin-top: 25px;">
-                    <div class="card-body"> <h3> Agregar Pista</h3>
-                        <form action="/links/aeropuertos-pista" method="POST">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="nombre_pista_aterrizaje" placeholder="Nombre Pista" required="required">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="longitud_pista_aterrizaje" placeholder="Longitud pista (metros)" required="required">
-                            </div>
-                            <div class="form-group" required="required">
-                                    <select type= "text" name="nombre_aeropuerto" class="form-control">
-                                        {{#each aeropuerto}}
-                                        <option>{{nombre_aeropuerto}}</option>
-                                        {{/each}}
-                                    </select>
-                            </div>
-                            <button class="btn btn-success btn-block">
-                                    SAVE
-                            </button>
-                        </form>
-                    </div>
-                </div> 
-            </div>
-        </div>
      </div>
 </div>
