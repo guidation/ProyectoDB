@@ -1,0 +1,64 @@
+<div class="container p-4">
+    <div>
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <div class="row">
+                    <div class="card" style="width:300px; height:250px;">
+                        <div class="card-body">
+                            <h3> Agregar Proveedor</h3>
+                            <form action="/links/crear-proveedor" method="POST">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <input type="text" name="nombre_proveedor_charter" class="form-control" placeholder="Nombre Proveedor">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="tiempo_respuesta" class="form-control" placeholder="Tiempo De Respuesta (Dias)">
+                                    </div>
+                                </div>
+                                <button class="btn btn-success btn-block">
+                                    SAVE
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card" style="width:300px; height:320px; margin-top: 50px;">
+                        <div class="card-body">
+                            <h3> Alquilar Avion</h3>
+                            <form action="/links/alquilar-avion" method="POST">
+                                <div class="form-group">
+                                    <select type="text" name="nombre_proveedor_charter" class="form-control">
+                                        {{#each proveedor}}
+                                        <option>{{nombre_proveedor_charter}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group" required="required" style="margin-top: 10px;">
+                                    <select type="text" name="nombre_avion_modelo" class="form-control">
+                                        {{#each modelo}}
+                                        <option>{{nombre_avion_modelo}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="matricula_avion" class="form-control" placeholder="Matricula">
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" name="precio_por_distancia" class="form-control" placeholder="Precio Por Distancia" min="0">
+                                </div>
+                                <button class="btn btn-success btn-block">
+                                    SAVE
+                                </button>
+                        
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
