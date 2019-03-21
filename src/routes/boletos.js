@@ -15,10 +15,21 @@ router.get('/boleto', async  (req, res) => {
     const pasajeros = await pool.query('SELECT * FROM pasajero');
     const vuelosf = await pool.query('SELECT * FROM vuelo_fecha');
     const vuelos = await pool.query('SELECT * FROM vuelo');
+    const asientos = await pool.query('SELECT * FROM clase_asiento');
     const clientes = await pool.query('SELECT * FROM cliente'); 
-    res.render('links/boleto', { aeropuerto, pasajeros, vuelosf, vuelos, clientes});
+    const tabla = await pool.query('SELECT vuelo.numero_vuelo, vuelo.hora_llegada, vuelo.hora_salida, avion_modelo.nombre_avion_modelo, aeropuerto.nombre_aeropuerto, aeropuerto.nombre_aeropuerto FROM vuelo INNER JOIN avion_modelo ON vuelo.id_avion_modelo = avion_modelo.id_avion_modelo INNER JOIN aeropuerto ON vuelo.id_aeropuerto_llegada = aeropuerto.id_aeropuerto');
+    res.render('links/boleto', { aeropuerto, pasajeros, vuelosf, vuelos, clientes, tabla, asientos});
 });
 
+router.get('/boleto-previo', async  (req, res) => {
+    const aeropuerto = await pool.query('SELECT * FROM aeropuerto');
+    const pasajeros = await pool.query('SELECT * FROM pasajero');
+    const asientos = await pool.query('SELECT * FROM clase_asiento');
+    const vuelosf = await pool.query('SELECT * FROM vuelo_fecha');
+    const vuelos = await pool.query('SELECT * FROM vuelo');
+    const tabla = await pool.query('SELECT vuelo.numero_vuelo, vuelo.hora_llegada, vuelo.hora_salida, avion_modelo.nombre_avion_modelo, aeropuerto.nombre_aeropuerto, aeropuerto.nombre_aeropuerto FROM vuelo INNER JOIN avion_modelo ON vuelo.id_avion_modelo = avion_modelo.id_avion_modelo INNER JOIN aeropuerto ON vuelo.id_aeropuerto_llegada = aeropuerto.id_aeropuerto');
+    res.render('links/boleto-previo', { aeropuerto, pasajeros, vuelosf, vuelos, tabla, asientos});
+});
 
 /* borrar factura detalle y agregar id-boleto a factura
 borrar boleto detalle y agregar id-clase-asiento y id-vuelo-fecha a boleto
@@ -29,16 +40,18 @@ router.post('/add-boleto', async (req, res) =>{
     const {
         id_boleto,
         numero_boleto,
-        fecha_boleto,
+        
         precio,
         impuesto,
         numero_asiento,
         nombre,
-        nombre_aeropuerto_llegada,
-        nombre_aeropuerto_salida,
         equipaje, 
-        nombre_vuelo_fecha,
-        tipo_asiento,
+        id_vuelo_fecha,
+        nombre_clase_asiento,
+        id_aeropuerto_salida,
+        id_aeropuerto_llegada,
+        pasajeros,
+        
     } = req.body;
 
     
@@ -46,13 +59,12 @@ router.post('/add-boleto', async (req, res) =>{
     const pasajero = await pool.query('SELECT id_pasajero FROM pasajero WHERE nombre = ?', [nombre]);
     const idpas = pasajero[0];
     const id_pasajero = idpas["id_pasajero"];
-    const aeropuerto = await pool.query('SELECT id_aeropuerto FROM aeropuerto WHERE nombre_aeropuerto = ?', [nombre_aeropuerto_llegada]);
-    const aeropuerto2 = await pool.query('SELECT id_aeropuerto FROM aeropuerto WHERE nombre_aeropuerto = ?', [nombre_aeropuerto_salida]);
-    const ida = aeropuerto[0];
-    const ida2 = aeropuerto2[0];
-    const id_aeropuerto_llegada = ida["id_aeropuerto"];
-    const id_aeropuerto_salida = ida2["id_aeropuerto"];
-   
+    const asiento = await pool.query('SELECT id_clase_asiento FROM clase_asiento WHERE nombre_clase_asiento = ?', [nombre_clase_asiento]);
+    const idas = asiento[0];
+    const id_clase_asiento = idas["id_clase_asiento"];
+    const fecha1 = await pool.query('SELECT fecha FROM vuelo_fecha WHERE id_vuelo_fecha = ?', [id_vuelo_fecha]);
+    const fech = fecha1[0];
+    const fecha_boleto = fech["fecha"];
 
     const newBoleto = {
         id_pasajero,
@@ -65,18 +77,48 @@ router.post('/add-boleto', async (req, res) =>{
         id_aeropuerto_salida,
         id_aeropuerto_llegada,
         equipaje, 
-        nombre_vuelo_fecha,
-        tipo_asiento,
+        id_vuelo_fecha,
+        id_clase_asiento,
     }
     try{
         await pool.query("INSERT INTO boleto set ?", [newBoleto]);
         req.flash('success', 'Se ha agregado un boleto con exito');
+      
         res.redirect('/links/boleto');
     }catch(e){
+     
         console.log(e);
+        
     }
 });
+router.post('/add-boleto-previo', async (req, res) =>{
+    const {
+        numero_vuelo,
+    } = req.body;
 
+    
+    try{
+        const vuelo = await pool.query('SELECT id_vuelo FROM vuelo WHERE numero_vuelo = ?', [numero_vuelo]);
+    const idvuelo = vuelo[0];
+    const id_vuelo = idvuelo["id_vuelo"];
+    const vuelof = await pool.query('SELECT id_vuelo_fecha FROM vuelo_fecha WHERE id_vuelo = ?', [id_vuelo]);
+    const idvf = vuelof[0];
+    const id_vuelo_fecha = idvf["id_vuelo_fecha"];
+    const aeropt1 = await pool.query('SELECT id_aeropuerto_salida FROM vuelo WHERE numero_vuelo = ?', [numero_vuelo]);
+    const aeropt2 = await pool.query('SELECT id_aeropuerto_llegada FROM vuelo WHERE numero_vuelo= ?', [numero_vuelo]);
+    const fecha = await pool.query('SELECT fecha FROM vuelo_fecha WHERE id_vuelo_fecha = ?', [id_vuelo_fecha]);
+    const asientos = await pool.query('SELECT * FROM clase_asiento');
+    const precio = await pool.query('SELECT precio_base FROM vuelo_precio WHERE id_vuelo_fecha = ?', [id_vuelo_fecha]);
+    const pasajeros = await pool.query('SELECT * FROM pasajero');
+
+
+    res.render('./links/boleto', {id_vuelo_fecha, aeropt2, aeropt1, fecha, precio, pasajeros, asientos});
+
+    }catch(e){
+        console.log(e);
+
+    }
+});
 
 router.post('/add-factura', async (req, res) =>{
     const {
