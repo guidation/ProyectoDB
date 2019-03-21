@@ -1,78 +1,64 @@
-<div class="container p-4 text-center">
-    <div class="row">
-        <div class="col-4 ">
-            <div class="card" style="width:300px; margin-top: 100px; ">
-                <div class="card-body">
-                    <h3> Agregar Avion Alquilado</h3>
-                    <form action="/links/aviones-add" method="POST">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="matricula_avion" placeholder="Matricula"
-                                 required="required">
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="es_alquilado" value="0" checked>
-                            <label class="form-check-label" for="exampleRadios1">
-                                No alquilado
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="es_alquilado" value="1">
-                            <label class="form-check-label" for="exampleRadios2">
-                                Alquilado
-                            </label>
-                        </div>
-                        <div class="form-group" required="required" style="margin-top: 10px;">
-                            <select type="text" name="nombre_avion_modelo" class="form-control">
-                                {{#each model}}
-                                <option>{{nombre_avion_modelo}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                        <div class="form-group" required="required">
-                            <select type="text" name="nombre_estado" class="form-control">
-                                {{#each state}}
-                                <option>{{nombre_estado}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                        <button class="btn btn-success btn-block">
-                            SAVE
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-8 ">
-            <h1>Inventario de Aviones</h1>
-            <div class="row" style="margin-left: 75px;">
-                {{#each plane}}
-                <div class="col-md-5">
-                    <div class="card text-center" style="margin-top: 50px;">
+<div class="container p-4">
+    <div>
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <div class="row">
+                    <div class="card" style="width:300px; height:250px;">
                         <div class="card-body">
-                            <a href="{{url}}">
-                                <h3 class="card-title text-uppercase">
-                                    {{matricula_avion}}
-                                </h3>
-                            </a>
-                            <p>
-                                {{timeago created_at}}
-                            </p>
-                            <a href="/links/delete-avion/{{id_avion}}" class="btn btn-danger">DELETE</a>
-                            <a href="/links/edit-avion/{{id_avion}}" class="btn btn-secondary">EDIT</a>
-                        </div>
-                    </div>
-                </div>
-                {{else}}
-                <div class="col-md-4 mx-auto">
-                    <div class="card card-body text-center">
-                        <p>No hay aviones guardados</p>
-                        <a href="/links/add">Guarda uno</a>
-                    </div>
-                </div>
-                {{/each}}
-                </row>
+                            <h3> Agregar Proveedor</h3>
+                            <form action="/links/crear-proveedor" method="POST">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <input type="text" name="nombre_proveedor_charter" class="form-control" placeholder="Nombre Proveedor">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="tiempo_respuesta" class="form-control" placeholder="Tiempo De Respuesta (Dias)">
+                                    </div>
+                                </div>
+                                <button class="btn btn-success btn-block">
+                                    SAVE
+                                </button>
+                            </form>
 
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card" style="width:300px; height:320px; margin-top: 50px;">
+                        <div class="card-body">
+                            <h3> Alquilar Avion</h3>
+                            <form action="/links/alquilar-avion" method="POST">
+                                <div class="form-group">
+                                    <select type="text" name="nombre_proveedor_charter" class="form-control">
+                                        {{#each proveedor}}
+                                        <option>{{nombre_proveedor_charter}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group" required="required" style="margin-top: 10px;">
+                                    <select type="text" name="nombre_avion_modelo" class="form-control">
+                                        {{#each modelo}}
+                                        <option>{{nombre_avion_modelo}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="matricula_avion" class="form-control" placeholder="Matricula">
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" name="precio_por_distancia" class="form-control" placeholder="Precio Por Distancia" min="0">
+                                </div>
+                                <button class="btn btn-success btn-block">
+                                    SAVE
+                                </button>
+                        
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
+</div>
