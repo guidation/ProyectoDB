@@ -41,7 +41,13 @@
                              <li class="list-group-item"> {{'SELECT COUNT(boleto.id_aeropuerto_salida)'}} {{nombre_aeropuerto}}</li>
                         {{/each}}
                      </ul>
-                     
+
+                     <h5 style = "margin-top: 10px;">Origen mas comun </h3>
+                     <ul class="list-group">
+                        {{#each originado}}
+                             <li class="list-group-item"> {{'SELECT COUNT(boleto.id_aeropuerto_llegada)'}} {{nombre_aeropuerto}}</li>
+                        {{/each}}
+                     </ul>
                  </div>
              </div>
          </div>
@@ -52,6 +58,10 @@
                      <h5>Datos relevantes </h3>
                      <ul class="list-group">
                          <li>Peso promedio vuelo: {{peso}}</li>
+                         <li>Avion mas utilizado: {{matMAS}}, veces: {{numMAS}}</li>
+                         <li>Avion menos utilizado: {{matMIN}}, veces: {{numMIN}}</li>
+                         <li>Vuelos con sobreventa: {{sv}}</li>
+                         <li>Promedio con sobreventa: {{promedio}} %</li>
                      </ul>
                  </div>
              </div>
