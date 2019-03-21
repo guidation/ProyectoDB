@@ -15,7 +15,7 @@ router.get('/reportes', async(req,res) =>{
         const pesoPromedio = await pool.query('SELECT AVG(peso_vuelo) FROM vuelo_fecha;');
         const pesoProm = pesoPromedio[0];
         const peso = pesoProm['AVG(peso_vuelo)'];
-        const originado = await pool.query('SELECT COUNT(boleto.id_aeropuerto_llegada) as cuenta, aeropuerto.nombre_aeropuerto, boleto.id_boleto FROM boleto INNER JOIN aeropuerto ON boleto.id_aeropuerto_llegada = aeropuerto.id_aeropuerto GROUP by boleto.id_aeropuerto_llegada ORDER BY COUNT(boleto.id_aeropuerto_salida) DESC;');
+        const originado = await pool.query('SELECT COUNT(boleto.id_aeropuerto_llegada) as cuenta, aeropuerto.nombre_aeropuerto, boleto.id_boleto FROM boleto INNER JOIN aeropuerto ON boleto.id_aeropuerto_salida = aeropuerto.id_aeropuerto GROUP by boleto.id_aeropuerto_llegada ORDER BY COUNT(boleto.id_aeropuerto_salida) DESC;');
         const sobreVent = await pool.query("SELECT COUNT(porcentaje_sobreventa) FROM vuelo_fecha WHERE porcentaje_sobreventa > 0;");
         const  svent = sobreVent[0];
         const sv = svent['COUNT(porcentaje_sobreventa)'];

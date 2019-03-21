@@ -5,14 +5,14 @@
                 <div class="card-body"> <h3> Agregar Vuelo</h3>
                 <form action="/links/verificar-pista" method="POST">
                     <div class="form-group" required="required"> Origen
-                            <select type= "text" name="nombre_aeropuerto_llegada" class="form-control" >
+                            <select type= "text" name="nombre_aeropuerto_salida" class="form-control" >
                                 {{#each aeropuerto}}
                                 <option>{{nombre_aeropuerto}}</option>
                                 {{/each}}
                             </select>
                     </div>
                     <div class="form-group" required="required"> Destino
-                            <select type= "text" name="nombre_aeropuerto_salida" class="form-control" >
+                            <select type= "text" name="nombre_aeropuerto_llegada" class="form-control" >
                                 {{#each aeropuerto}}
                                 <option>{{nombre_aeropuerto}}</option>
                                 {{/each}}
