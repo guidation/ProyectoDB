@@ -5,6 +5,14 @@
                   <div class="card "> 
                       <div class="card-body"> <h3> Agregar boleto</h3>
                           <form action="/links/add-boleto" method="POST">
+                          <div class="form-group">
+                                  Vuelo
+                                  <select type= "text" name="id_vuelo_fecha" class="form-control" placeholder="Vuelo">
+                                      
+                                        <option>{{id_vuelo_fecha}}</option>
+                                    </select>
+                              </div>
+                              
                               <div class="form-group">
                                   Pasajero
                                   <select type= "text" name="nombre" class="form-control" placeholder="Pasajero">
@@ -17,10 +25,11 @@
                                  <input type= "text" name="numero_boleto" class="form-control" placeholder="Numero de Boleto">
                               </div>
                               <div class="form-group">
-                                  <input type="date" class="form-control" name="fecha_boleto" placeholder="Fecha del Boleto">
-                              </div>
-                              <div class="form-group">
-                              <input type= "number" name="precio" class="form-control" placeholder="Precio">
+                                  <select type="number" class="form-control" name="precio" placeholder="Precio del boleto">
+                                      {{#each precio}}
+                                        <option>{{precio_base}}</option>
+                                      {{/each}}
+                                  </select>
                               </div>
                               <div class="form-group">
                                   <input type="number" class="form-control" name="impuesto" placeholder="Impuesto">
@@ -28,40 +37,33 @@
                               <div class="form-group">
                               <input type= "text" name="numero_asiento" class="form-control" placeholder="Numero de Asiento">
                               </div>
-                              <div class="form-group">
-                                  Aeropuerto Salida
-                                  <select type= "text" name="nombre_aeropuerto_salida" class="form-control" placeholder="Aeropuerto Salida">
-                                      {{#each aeropuerto}}
-                                        <option>{{nombre_aeropuerto}}</option>
-                                      {{/each}}
-                                  </select>
-                              </div>
-                              <div class="form-group">
-                                  Aeropuerto Llegada
-                                  <select type= "text" name="nombre_aeropuerto_llegada" class="form-control" placeholder="Aeropuerto Llegada">
-                                      {{#each aeropuerto}}
-                                        <option>{{nombre_aeropuerto}}</option>
-                                      {{/each}}
-                                  </select>
-                              </div>
+                             
                               <div class="form-group">
                               <input type= "number" name="equipaje" class="form-control" placeholder="Cantidad de equipaje">
                               </div>
-                              <div class="form-group">
-                                  Vuelo
-                                  <select type= "text" name="nombre_vuelo_fecha" class="form-control" placeholder="Vuelo">
-                                      {{#each vuelo}}
-                                        <option>{{nombre_vuelo_fecha}}</option>
+                                <div class="form-group">
+                                  Tipo de asiento
+                                  <select type= "text" name="nombre_clase_asiento" class="form-control" placeholder="Tipo de Asientos">
+                                      {{#each asientos}}
+                                        <option>{{nombre_clase_asiento}}</option>
                                       {{/each}}
                                   </select>
                               </div>
-                               <div class="form-group">
-                                  Asiento
-                                  <select type= "text" name="tipo_asiento" class="form-control" placeholder="Tipo de asiento">
-                                      <option>Económica</option>
-                                      <option>Primera Clase</option>
+                              <div class="form-group">
+                                  <select type= "text" name="id_aeropuerto_salida" class="form-control" placeholder="">
+                                      {{#each aeropt1}}
+                                        <option>{{id_aeropuerto_salida}}</option>
+                                      {{/each}}
                                   </select>
                               </div>
+                              <div class="form-group">
+                                  <select type= "text" name="id_aeropuerto_llegada" class="form-control" placeholder="">
+                                      {{#each aeropt2}}
+                                        <option>{{id_aeropuerto_llegada}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              
                                   <button class="btn btn-success btn-block">
                                       SAVE
                                   </button>
