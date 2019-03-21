@@ -57,7 +57,7 @@ app.use((req, res, next) =>{
 //routes
 app.use(require('./routes'));
 app.use(require('./routes/aunthentication'));
-app.use('/links', require('./routes/links'), require('./routes/aero'), require('./routes/fly'), require('./routes/boletos'), require('./routes/client'), require('./routes/mantenimiento'),  require('./routes/main'));
+app.use('/links', require('./routes/links'), require('./routes/aero'), require('./routes/fly'), require('./routes/boletos'), require('./routes/client'), require('./routes/mantenimiento'),  require('./routes/main'), require('./routes/manifiesto'));
 
 
 //publicos
