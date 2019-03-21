@@ -3,25 +3,48 @@
         <div class="row">
            <div class="col-md-4 mx-auto" > 
                   <div class="card "> 
-                      <div class="card-body"> <h3> Manifiesto Cancelacion</h3>
-                          <form action="/links/add-manifiestocancel" method="POST">
+                      <div class="card-body"> <h3> Manifiesto Desvio</h3>
+                          <form action="/links/add-manifiestodesvio" method="POST">
                               
                               <div class="form-group">
-                                 <input type= "date" name="fecha_cancelacion" class="form-control" placeholder="Fecha de la Cancelación">
+                                 <input type= "date" name="fecha_desvio" class="form-control" placeholder="Fecha del Desvio">
                               </div>
                               
                               <div class="form-group">
-                              <input type= "text" name="motivo_cancelacion" class="form-control" placeholder="Motivo de Cancelacion" style="height:20px">
+                              <input type= "text" name="motivo_desvio" class="form-control" placeholder="Motivo Desvio" style="height:70px">
                               </div>
                               <div class="form-group">
-                                 Vuelo a cancelar
+                                 Vuelo a desviarse
                                   <select type= "text" name="numero_vuelo" class="form-control" placeholder="Numero del Vuelo">
                                       {{#each vuelof}}
                                         <option>{{numero_vuelo}}</option>
                                       {{/each}}
                                   </select>
                               </div>
-                              
+                              <div class="form-group">
+                                 Aeropuerto Al que se dirigia
+                                  <select type= "text" name="nombre_aeropuerto" class="form-control" placeholder="n">
+                                      {{#each api}}
+                                        <option>{{nombre_aeropuerto}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                Proveedor Charter
+                                  <select type= "text" name="nombre_proveedor_charter" class="form-control" placeholder="">
+                                      {{#each chart}}
+                                        <option>{{nombre_proveedor_charter}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                Avion Charter
+                                  <select type= "text" name="id_avion" class="form-control" placeholder="">
+                                      {{#each avion}}
+                                        <option>{{id_avion}}</option>
+                                      {{/each}}
+                                  </select>
+                              </div>
                                   <button class="btn btn-success btn-block">
                                       SAVE
                                   </button>
@@ -30,6 +53,15 @@
                       </div>
                  </div>
             </div>
+            <div class="col-8">
+            <h1>Itinerario vuelos</h1>
+            <ul class="list-group">
+                {{#each tabla}}
+                    <li class="list-group-item">Numero vuelo: {{numero_vuelo}}  [Hora salida: {{hora_salida}} Hora llegada: {{hora_llegada}}] Modelo {{nombre_avion_modelo}} Llegada: {{nombre_aeropuerto}}</li>
+                {{/each}}
+            </ul>
+
+        </div>
            
         </div>
     </div>
